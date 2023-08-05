@@ -1,7 +1,9 @@
 import * as React from 'react'
-import { Link } from 'gatsby'
+import { Link, useStaticQuery, graphql } from 'gatsby'
+import useSiteMetadata from '../hooks/useSiteMetadata'
 import {
   container,
+	siteTitle,
   heading,
   navLinks,
   navLinkItem,
@@ -9,8 +11,11 @@ import {
 } from './layout.module.css'
 
 const Layout = ({ pageTitle, children }) => {
+	const data = useSiteMetadata();
+
   return (
     <div className={container}>
+			<header className={siteTitle}>{data.title}</header>
       <nav>
         <ul className={navLinks}>
           <li className={navLinkItem}>
@@ -23,8 +28,14 @@ const Layout = ({ pageTitle, children }) => {
               About
             </Link>
           </li>
+					<li className={navLinkItem}>
+            <Link to="/blog" className={navLinkText}>
+              Blog
+            </Link>
+          </li>
         </ul>
       </nav>
+      
       <main>
         <h1 className={heading}>{pageTitle}</h1>
         {children}
